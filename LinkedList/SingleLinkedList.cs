@@ -36,7 +36,6 @@ namespace DataStructure
                 _head = newNode;
             else
             {
-
                 ListNode<T> preNode = GetEle(_count - 1);
                 preNode.Next = newNode;
             }
