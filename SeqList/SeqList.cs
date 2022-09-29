@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Text;
 
-namespace DataStrcuture
+namespace DataStructure
 {
-    public class SeqList<T> where T : IComparable<T>
+    class SeqList<T> where T : IComparable<T>
     {
-        private T[] _data;
+        private T[] _dataArray;
         private int _capacity;
-        private int _length;
+        private int _count;
 
         public SeqList(int capacity = 4)
         {
-            _data = new T[capacity];
+            _dataArray = new T[capacity];
             _capacity = capacity;
-            _length = 0;
+            _count = 0;
         }
 
         public T this[int index]
@@ -25,53 +25,52 @@ namespace DataStrcuture
 
             set
             {
-                if (index < 0 || index > _length)
-                    throw new IndexOutOfRangeException("索引不合法");
+                if (index < 0 || index > _count)
+                    throw new ArgumentOutOfRangeException("索引不合法");
 
-                _data[index] = value;
+                _dataArray[index] = value;
             }
         }
 
-        //获取列表的长度
-        public int Count => _length;
+        public int Count => _count;
 
-        public void Add(T value)
+        public void Add(T data)
         {
-            if (_length == _capacity)
+            if (_count == _capacity)
                 EnsureCapacity();
 
-            _data[_length++] = value;       
+            _dataArray[_count++] = data;
         }
 
-        public void Insert(int index, T value)
+        public void Insert(int index, T data)
         {
-            if (index < 0 || index > _length)
-                throw new IndexOutOfRangeException("索引不合法");
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("索引不合法");
 
-            if (_length == _capacity)
+            if (_count == _capacity)
                 EnsureCapacity();
 
-            for (int i = _length; i > index; i--)
-                _data[i] = _data[i - 1];
+            for (int i = _count; i > index; i--)
+                _dataArray[i] = _dataArray[i - 1];
 
-            _data[index] = value;
-            _length++;
-       }
+            _dataArray[index] = data;
+            _count++;
+        }
 
         public T GetEle(int index)
         {
-            if (index < 0 || index > _length)
-                throw new IndexOutOfRangeException("索引不合法");
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("索引不合法");
 
-            return _data[index];
+            return _dataArray[index];
         }
 
-        public int GetIndexOf(T value)
+        public int GetIndexOf(T data)
         {
             int findIndex = -1;
-            for(int i = 0; i < _length; i++)
+            for (int i = 0; i < _count; i++)
             {
-                if (_data[i].Equals(value))
+                if (_dataArray[i].Equals(data))
                 {
                     findIndex = i;
                     break;
@@ -81,43 +80,43 @@ namespace DataStrcuture
             return findIndex;
         }
 
-        public bool Remove(T value)
+        public bool Remove(T data)
         {
-            int findIndex = GetIndexOf(value);
-
-            if(findIndex > 0)
+            int findIndex = GetIndexOf(data);
+            if (findIndex > 0)
             {
                 RemoveAt(findIndex);
                 return true;
             }
 
-            return false;
+            return false;    
         }
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index > _length)
-                throw new IndexOutOfRangeException("索引不合法");
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("索引不合法");
 
-            for (int i = index; i < _length - 1; i++)
-                _data[i] = _data[i + 1];
+            for (int i = index; i < _count - 1; i++)
+                _dataArray[i] = _dataArray[i + 1];
 
-            _length--;
-        }    
+            _count--;
+        }
 
         public void Clear()
         {
-            _data = null;
-            _length = 0;
+            _dataArray = null;
+            _capacity = 0;
+            _count = 0;    
         }
 
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < _count; i++)
             {
-                stringBuilder.Append($"{_data[i]} ");
+                stringBuilder.Append($"{_dataArray[i]} ");
             }
 
             return stringBuilder.ToString();
@@ -126,11 +125,11 @@ namespace DataStrcuture
         private void EnsureCapacity()
         {
             int newCapacity = _capacity * 2;
-            T[] newData = new T[newCapacity];
+            T[] newDataArray = new T[newCapacity];
             for (int i = 0; i < _capacity; i++)
-                newData[i] = _data[i];
+                newDataArray[i] = _dataArray[i];
 
-            _data = newData;
+            _dataArray = newDataArray;
             _capacity = newCapacity;
         }
     }
