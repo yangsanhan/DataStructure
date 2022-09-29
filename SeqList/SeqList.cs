@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DataStructure
 {
-    class SeqList<T> where T : IComparable<T>
+    public class SeqList<T> where T : IComparable<T>
     {
         private T[] _dataArray;
         private int _capacity;
