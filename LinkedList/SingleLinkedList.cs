@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DataStructure
 {
-    class SingleLinkedList<T> where T : IComparable<T>
+    public class SingleLinkedList<T> where T : IComparable<T>
     {
         private ListNode<T> _head;
         private int _count;
@@ -20,34 +20,51 @@ namespace DataStructure
         {
             get
             {
-                return GetEle(index).Value;
+                return GetNodeByIndex(index).Value;
             }
 
             set
             {
-                GetEle(index).Value = value;
+                GetNodeByIndex(index).Value = value;
             }
         }
 
-        public void Add(T value)
+        public void Add(T data)
         {
-            ListNode<T> newNode = new ListNode<T>(value);
+            ListNode<T> newNode = new ListNode<T>(data);
             if (_head == null)
                 _head = newNode;
             else
             {
-                ListNode<T> preNode = GetEle(_count - 1);
+                ListNode<T> preNode = GetNodeByIndex(_count - 1);
                 preNode.Next = newNode;
             }
 
             _count++;
         }
 
-        public void Insert(int index, T value)
+        public ListNode<T> GetNodeByIndex(int index)
         {
-            ListNode<T> newNode = new ListNode<T>(value);
-            if (index == 0)
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("index", "索引超出范围");
+
+            ListNode<T> tempNode = _head;
+            for (int i = 0; i < index; i++)
+                tempNode = tempNode.Next;
+
+            return tempNode;
+        }
+
+        public void Insert(int index, T data)
+        {
+            ListNode<T> newNode = null;
+
+            if (index < 0 || index >= _count)
+                throw new ArgumentOutOfRangeException("index", "索引超出范围");
+            else if (index == 0)
             {
+                newNode = new ListNode<T>(data);
+
                 if (_head == null)
                     _head = newNode;
                 else
@@ -58,78 +75,29 @@ namespace DataStructure
             }
             else
             {
-                ListNode<T> preNode = GetEle(index - 1);
+                ListNode<T> preNode = GetNodeByIndex(index - 1);
+                newNode = new ListNode<T>(data);
                 newNode.Next = preNode.Next;
                 preNode.Next = newNode;
-            }
+            } 
 
             _count++;
         }
 
-        public ListNode<T> GetEle(int index)
-        {
-            if (index < 0 || index > _count)
-                throw new IndexOutOfRangeException("索引不合法");
-
-            ListNode<T> tempNode = _head;
-            for (int i = 0; i < index; i++)
-                tempNode = tempNode.Next;
-
-            return tempNode;
-        }
-
-        public int GetIndexOf(T value)
-        {
-            int findIndex = -1;
-            ListNode<T> tempNode = _head;           
-            for (int i = 0; i < _count; i++)
-            {
-                if(tempNode.Value.Equals(value))
-                {
-                    findIndex = i;
-                    break;
-                }
-
-                tempNode = tempNode.Next;
-            }
-
-            return findIndex;
-        }
-
-        public bool Remove(T value)
-        {
-            if (_count == 0)
-                throw new Exception("列表为空，无法进行删除操作");
-
-            int findIndex = GetIndexOf(value);
-            if (findIndex == -1)
-                return false;
-            else
-            {
-                RemoveAt(findIndex);
-                return true;
-            }       
-        }
-
         public void RemoveAt(int index)
         {
-            if (_count == 0)
-                throw new Exception("列表为空，无法进行删除操作");
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("index", "索引超出范围");
 
             if (index == 0)
                 _head = _head.Next;
             else
             {
-                ListNode<T> preNode = GetEle(index);
-                if (preNode == null)
-                    throw new ArgumentOutOfRangeException("索引不合法");
-                else
-                {
-                    preNode.Next = preNode.Next.Next;
-                }
+                ListNode<T> preNode = GetNodeByIndex(index - 1);
+                ListNode<T> delNode = preNode.Next;
+                preNode.Next = delNode.Next;
+                delNode = null;
             }
-
-            _count--;
         }
 
         public void Clear()
@@ -140,12 +108,15 @@ namespace DataStructure
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            if (_head == null)
+                return "";
 
+            StringBuilder stringBuilder = new StringBuilder();
             ListNode<T> tempNode = _head;
-            for (int i = 0; i < _count; i++)
+
+            for(int i = 0; i < _count - 1; i++)
             {
-                stringBuilder.Append($"{tempNode.Value} ");
+                stringBuilder.Append(tempNode.Value + " ");
                 tempNode = tempNode.Next;
             }
 
