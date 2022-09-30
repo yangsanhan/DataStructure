@@ -29,6 +29,18 @@ namespace DataStructure
             }
         }
 
+        public ListNode<T> GetNodeByIndex(int index)
+        {
+            if (index < 0 || index > _count)
+                throw new ArgumentOutOfRangeException("index", "索引超出范围");
+
+            ListNode<T> tempNode = _head;
+            for (int i = 0; i < index; i++)
+                tempNode = tempNode.Next;
+
+            return tempNode;
+        }
+
         public void Add(T data)
         {
             ListNode<T> newNode = new ListNode<T>(data);
@@ -41,18 +53,6 @@ namespace DataStructure
             }
 
             _count++;
-        }
-
-        public ListNode<T> GetNodeByIndex(int index)
-        {
-            if (index < 0 || index > _count)
-                throw new ArgumentOutOfRangeException("index", "索引超出范围");
-
-            ListNode<T> tempNode = _head;
-            for (int i = 0; i < index; i++)
-                tempNode = tempNode.Next;
-
-            return tempNode;
         }
 
         public void Insert(int index, T data)
