@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DataStructure
 {
-    public class SeqList<T> where T : IComparable<T>
+    public class SeqList<T> where T : IComparable
     {
         private T[] _dataArray;
         private int _capacity;
@@ -25,7 +25,7 @@ namespace DataStructure
 
             set
             {
-                if (index < 0 || index > _count)
+                if (index < 0 || index > _count - 1)
                     throw new IndexOutOfRangeException("索引不合法");
 
                 _dataArray[index] = value;
@@ -89,12 +89,12 @@ namespace DataStructure
                 return true;
             }
 
-            return false;    
+            return false;
         }
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index > _count)
+            if (index < 0 || index > _count - 1)
                 throw new IndexOutOfRangeException("索引不合法");
 
             for (int i = index; i < _count - 1; i++)
@@ -107,7 +107,7 @@ namespace DataStructure
         {
             _dataArray = null;
             _capacity = 0;
-            _count = 0;    
+            _count = 0;
         }
 
         public override string ToString()
