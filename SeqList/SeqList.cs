@@ -26,7 +26,7 @@ namespace DataStructure
             set
             {
                 if (index < 0 || index > _count)
-                    throw new ArgumentOutOfRangeException("索引不合法");
+                    throw new IndexOutOfRangeException("索引不合法");
 
                 _dataArray[index] = value;
             }
@@ -45,7 +45,7 @@ namespace DataStructure
         public void Insert(int index, T data)
         {
             if (index < 0 || index > _count)
-                throw new ArgumentOutOfRangeException("索引不合法");
+                throw new IndexOutOfRangeException("索引不合法");
 
             if (_count == _capacity)
                 EnsureCapacity();
@@ -60,7 +60,7 @@ namespace DataStructure
         public T GetEle(int index)
         {
             if (index < 0 || index > _count - 1)
-                throw new ArgumentOutOfRangeException("索引不合法");
+                throw new IndexOutOfRangeException("索引不合法");
 
             return _dataArray[index];
         }
@@ -95,7 +95,7 @@ namespace DataStructure
         public void RemoveAt(int index)
         {
             if (index < 0 || index > _count)
-                throw new ArgumentOutOfRangeException("索引不合法");
+                throw new IndexOutOfRangeException("索引不合法");
 
             for (int i = index; i < _count - 1; i++)
                 _dataArray[i] = _dataArray[i + 1];
