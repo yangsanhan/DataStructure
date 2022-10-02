@@ -59,7 +59,7 @@ namespace DataStructure
         {
             ListNode<T> newNode = null;
 
-            if (index < 0 || index >= _count)
+            if (index < 0 || index > _count)
                 throw new ArgumentOutOfRangeException("index", "索引超出范围");
             else if (index == 0)
             {
@@ -79,7 +79,7 @@ namespace DataStructure
                 newNode = new ListNode<T>(data);
                 newNode.Next = preNode.Next;
                 preNode.Next = newNode;
-            } 
+            }
 
             _count++;
         }
@@ -114,7 +114,7 @@ namespace DataStructure
             StringBuilder stringBuilder = new StringBuilder();
             ListNode<T> tempNode = _head;
 
-            for(int i = 0; i < _count - 1; i++)
+            for (int i = 0; i < _count; i++)
             {
                 stringBuilder.Append(tempNode.Value + " ");
                 tempNode = tempNode.Next;
