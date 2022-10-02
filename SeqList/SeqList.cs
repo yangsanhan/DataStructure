@@ -59,7 +59,7 @@ namespace DataStructure
 
         public T GetEle(int index)
         {
-            if (index < 0 || index > _count)
+            if (index < 0 || index > _count - 1)
                 throw new ArgumentOutOfRangeException("索引不合法");
 
             return _dataArray[index];
