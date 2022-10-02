@@ -86,7 +86,7 @@ namespace DataStructure
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index > _count)
+            if (index < 0 || index > _count - 1)
                 throw new ArgumentOutOfRangeException("index", "索引超出范围");
 
             if (index == 0)
