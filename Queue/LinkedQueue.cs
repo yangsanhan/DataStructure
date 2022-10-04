@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructure
+﻿namespace DataStructure
 {
     public class LinkedQueue<T>
     {
-        private QueueNode<T> _head;
-        private QueueNode<T> _tail;
+        private QueueNode<T> _front;
+        private QueueNode<T> _rear;
         private int _count;
 
         public LinkedQueue()
         {
-            _head = null;
-            _tail = null;
+            _front = null;
+            _rear = null;
             _count = 0;
         }
 
@@ -26,13 +20,13 @@ namespace DataStructure
             QueueNode<T> newNode = new QueueNode<T>(data);
             if(IsEmpty())
             {
-                _head = newNode;
-                _tail = newNode;
+                _front = newNode;
+                _rear = newNode;
             }
             else
             {
-                _tail.Next = newNode;
-                _tail = newNode;
+                _rear.Next = newNode;
+                _rear = newNode;
             }
 
             _count++;
@@ -44,8 +38,8 @@ namespace DataStructure
                 return default(T);
             else
             {
-                T deQueueValue = _head.Value;
-                _head = _head.Next;
+                T deQueueValue = _front.Value;
+                _front = _front.Next;
                 _count--;
 
                 return deQueueValue;
