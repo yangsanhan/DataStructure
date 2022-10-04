@@ -47,6 +47,12 @@ namespace DataStructure
             _data[++_top] = item;
         }
 
+        public void Clear()
+        {
+            _data = null;
+            _top = -1;
+        }
+
         private void ResizeCapacity(int newCapacity)
         {
             T[] newData = new T[newCapacity];

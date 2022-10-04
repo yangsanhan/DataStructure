@@ -47,6 +47,12 @@ namespace DataStructure
 
             _count++;
         }
+
+        public void Clear()
+        {
+            _top = null;
+            _count = 0;
+        }
     }
 
     public class StackNode<T>

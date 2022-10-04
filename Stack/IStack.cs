@@ -13,5 +13,6 @@ namespace DataStructure
         void Push(T item);
         T Peek();
         T Pop();
+        void Clear();
     }
 }
